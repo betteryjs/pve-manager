@@ -1,0 +1,14 @@
+requests
+pyTelegramBotAPI
+paramiko
+
+openssh_wrapper
+requests
+requests_toolbelt
+
+# used by test framework
+coveralls
+pytest
+pytest-cov
+responses
+proxmoxer

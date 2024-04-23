@@ -1,0 +1,9 @@
+{
+  "pve_web": ["192.168.66.6","root@pam",8006,"Yjs1903$"],
+  "pve_ssh": ["192.168.66.6","root",22,"Yjs1903$"],
+  "node": "pve",
+  "TGBotAPI": "xxxxx",
+  "authorized_users": ["AS99294837"]
+}
+
+
