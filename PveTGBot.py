@@ -113,12 +113,12 @@ def send_menu(user_id, message_id=None, chat_id=None):
         for button in buttons:
             markup.add(button)
 
-    if message_id:
-        bot.edit_message_reply_markup(user_id, message_id, reply_markup=markup)
-
-
-    else:
-        bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
+    # if message_id:
+    #     bot.edit_message_reply_markup(user_id, message_id, reply_markup=markup)
+    # 
+    # 
+    # else:
+    #     bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
