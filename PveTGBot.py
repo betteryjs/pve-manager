@@ -137,56 +137,62 @@ def callback_handler(call):
     vmsPVE = VMS()
 
     if data == 'menu1#button1':
-        print(path)
 
         msg = "PVE关机"
         vmsPVE.stopPve()
         bot.send_message(chat_id, msg)
         bot.delete_message(chat_id, message_id)
+        print(path)
+
 
     elif data == 'menu1#button2':
-        print(path)
 
         msg = "PVE重启"
         vmsPVE.rebootPve()
         bot.send_message(chat_id, msg)
         bot.delete_message(chat_id, message_id)
+        print(path)
+
 
     elif data == 'menu1#button4':
-        print(path)
 
         bot.delete_message(chat_id, message_id)
+        print(path)
+
 
     elif data == 'menu1#button3':
-        print(path)
 
         user_data[user_id]['level'] = 2
         user_data[user_id]['path'].append(data)
         send_menu(user_id, message_id=message_id, chat_id=chat_id)
+        print(path)
+
 
     if data == 'back':
-        print(path)
 
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
         send_menu(user_id, message_id, chat_id=chat_id)
+        print(path)
+
 
     if data == 'home':
-        print(path)
 
         user_data[user_id]['level'] = 1
         user_data[user_id]['path'] = []
         send_menu(user_id, message_id, chat_id=chat_id)
+        print(path)
+
 
     if level == 2:
-        print(path)
 
         user_data[user_id]['level'] = 3
         user_data[user_id]['path'].append(data)
         send_menu(user_id, message_id, chat_id)
+        print(path)
+
 
     if level == 3:
-        print(path)
         vmid = int(path[-1].split("#")[1])
         vmname = path[-1].split("#")[2]
         novm = VM(vmid)
@@ -217,6 +223,8 @@ def callback_handler(call):
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
         send_menu(user_id, message_id, chat_id=chat_id)
+        print(path)
+
 
 
 if __name__ == '__main__':
