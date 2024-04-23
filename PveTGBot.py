@@ -158,12 +158,12 @@ def callback_handler(call):
     if data == 'back':
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
-        send_menu(user_id, message_id)
+        send_menu(user_id, message_id,chat_id=chat_id)
 
     if data == 'home':
         user_data[user_id]['level'] = 1
         user_data[user_id]['path'] = []
-        send_menu(user_id, message_id)
+        send_menu(user_id, message_id,chat_id=chat_id)
 
     # if level == 1:
     #     user_data[user_id]['level'] = 2
@@ -213,7 +213,7 @@ def callback_handler(call):
 
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
-        send_menu(user_id, message_id)
+        send_menu(user_id, message_id,chat_id=chat_id)
 
 if __name__ == '__main__':
 
