@@ -22,3 +22,14 @@ source .venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+
+## 复制 service
+```
+cp  PveTGBot.service  /etc/systemd/system/
+chmod 644 /etc/systemd/system/PveTGBot.service
+systemctl daemon-reload
+systemctl start PveTGBot.service
+systemctl enable PveTGBot.service
+systemctl status PveTGBot.service
+
+```

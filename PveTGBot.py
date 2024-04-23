@@ -132,7 +132,6 @@ def callback_handler(call):
     message_id = call.message.message_id
     level = user_data[user_id]['level']
     path = user_data[user_id]['path']
-    print(user_data[user_id]['path'], user_data[user_id]['level'])
 
     chat_id = call.message.chat.id  # 获取当前聊天的chat_id
     vmsPVE = VMS()

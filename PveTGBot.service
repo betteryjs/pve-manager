@@ -1,0 +1,10 @@
+[Unit]
+Description=Test Service
+After=multi-user.target
+[Service]
+Type=idle
+WorkingDirectory=/root/pve-manager/
+ExecStart=/root/pve-manager/.venv/bin/python3 /root/pve-manager/PveTGBot.py
+
+[Install]
+WantedBy=multi-user.target
