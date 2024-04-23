@@ -170,6 +170,7 @@ def callback_handler(call):
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
         send_menu(user_id, message_id, chat_id=chat_id)
+        return
 
 
     if data == 'home':
@@ -177,6 +178,7 @@ def callback_handler(call):
         user_data[user_id]['level'] = 1
         user_data[user_id]['path'] = []
         send_menu(user_id, message_id, chat_id=chat_id)
+        return 
 
 
     if level == 2:
