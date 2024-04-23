@@ -43,7 +43,7 @@ def handle_start(message):
         chat_id=message.chat.id
 
         user_data[user_id] = {'level': 1, 'path': []}
-        send_menu(user_id,chat_id=chat_id)
+        send_menu(user_id)
     else:
 
         bot.reply_to(message, f"You are not authorized to use this bot. id is {message.from_user.id}"
@@ -72,12 +72,12 @@ def send_menu(user_id, message_id=None, chat_id=None):
             types.InlineKeyboardButton('管理虚拟机', callback_data='menu1#button3'),
             types.InlineKeyboardButton('退出菜单', callback_data='menu1#button4'),
         ]
-        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要进行的操作: ")
 
 
         for i in range(0, len(buttons), 2):
             row = buttons[i:i + 2]
             markup.add(*row)
+        bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
 
     elif level == 2:
         # button1 = types.InlineKeyboardButton(f'子菜单1（从{path[-1]}进入）', callback_data='submenu1')
