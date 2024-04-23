@@ -4,7 +4,6 @@ import sys
 import telebot
 from telebot import types
 
-
 from config import Config
 from vms import VMS
 from vm import VM
@@ -28,10 +27,6 @@ def is_authorized(user_identifier):
     elif user_identifier.username in authorized_users:
         return True
     return False
-
-
-
-
 
 
 bot = telebot.TeleBot(Config["TGBotAPI"])
@@ -77,7 +72,6 @@ def send_menu(user_id, message_id=None, chat_id=None):
             types.InlineKeyboardButton('退出菜单', callback_data='menu1#button4'),
         ]
 
-
         for i in range(0, len(buttons), 2):
             row = buttons[i:i + 2]
             markup.add(*row)
@@ -103,7 +97,8 @@ def send_menu(user_id, message_id=None, chat_id=None):
 
         for button in buttons:
             markup.add(button)
-        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要管理的虚拟机: ",reply_markup=markup)
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要管理的虚拟机: ",
+                              reply_markup=markup)
 
 
 
@@ -121,15 +116,10 @@ def send_menu(user_id, message_id=None, chat_id=None):
 
         for button in buttons:
             markup.add(button)
-        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current(), parse_mode='HTML',reply_markup=markup)
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current(), parse_mode='HTML',
+                              reply_markup=markup)
 
 
-    # if message_id:
-    #     bot.edit_message_reply_markup(user_id, message_id, reply_markup=markup)
-    # 
-    # 
-    # else:
-    #     bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -141,52 +131,63 @@ def callback_handler(call):
     path = user_data[user_id]['path']
 
     chat_id = call.message.chat.id  # 获取当前聊天的chat_id
-    vmsPVE=VMS()
+    vmsPVE = VMS()
 
     if data == 'menu1#button1':
+        print(path)
+
         msg = "PVE关机"
         vmsPVE.stopPve()
         bot.send_message(chat_id, msg)
         bot.delete_message(chat_id, message_id)
 
     elif data == 'menu1#button2':
+        print(path)
+
         msg = "PVE重启"
         vmsPVE.rebootPve()
         bot.send_message(chat_id, msg)
         bot.delete_message(chat_id, message_id)
 
     elif data == 'menu1#button4':
+        print(path)
+
         bot.delete_message(chat_id, message_id)
 
     elif data == 'menu1#button3':
+        print(path)
+
         user_data[user_id]['level'] = 2
         user_data[user_id]['path'].append(data)
-        send_menu(user_id, message_id=message_id,chat_id=chat_id)
+        send_menu(user_id, message_id=message_id, chat_id=chat_id)
 
     if data == 'back':
+        print(path)
+
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
-        send_menu(user_id, message_id,chat_id=chat_id)
+        send_menu(user_id, message_id, chat_id=chat_id)
 
     if data == 'home':
+        print(path)
+
         user_data[user_id]['level'] = 1
         user_data[user_id]['path'] = []
-        send_menu(user_id, message_id,chat_id=chat_id)
-
-
+        send_menu(user_id, message_id, chat_id=chat_id)
 
     if level == 2:
+        print(path)
+
         user_data[user_id]['level'] = 3
         user_data[user_id]['path'].append(data)
         send_menu(user_id, message_id, chat_id)
 
     if level == 3:
-        print(path[-1])
+        print(path)
         vmid = int(path[-1].split("#")[1])
         vmname = path[-1].split("#")[2]
         novm = VM(vmid)
         choose = data.split("#")[1]
-        # bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current())
 
         if choose == "button1":
             novm.start()
@@ -210,11 +211,10 @@ def callback_handler(call):
             novm.forceStop()
             bot.send_message(user_id, f'{vmname}-{vmid} 强制关机成功')
 
-
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
-        send_menu(user_id, message_id,chat_id=chat_id)
+        send_menu(user_id, message_id, chat_id=chat_id)
+
 
 if __name__ == '__main__':
-
     bot.polling()
