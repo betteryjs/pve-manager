@@ -91,10 +91,11 @@ def send_menu(user_id, message_id=None, chat_id=None):
         #     row = buttons[i:i + 2]
         #     markup.add(*row)
         # markup.add(*buttons)
-        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要管理的虚拟机: ")
 
         for button in buttons:
             markup.add(button)
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要管理的虚拟机: ",reply_markup=markup)
+
 
 
     elif level == 3:
@@ -108,10 +109,11 @@ def send_menu(user_id, message_id=None, chat_id=None):
         ]
         vmid = int(path[-1].split("#")[1])
         novm = VM(vmid)
-        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current(), parse_mode='HTML')
 
         for button in buttons:
             markup.add(button)
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current(), parse_mode='HTML',reply_markup=markup)
+
 
     # if message_id:
     #     bot.edit_message_reply_markup(user_id, message_id, reply_markup=markup)
