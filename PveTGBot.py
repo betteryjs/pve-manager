@@ -132,12 +132,12 @@ def callback_handler(call):
     message_id = call.message.message_id
     level = user_data[user_id]['level']
     path = user_data[user_id]['path']
+    print(user_data[user_id]['path'], user_data[user_id]['level'])
 
     chat_id = call.message.chat.id  # 获取当前聊天的chat_id
     vmsPVE = VMS()
 
     if data == 'menu1#button1':
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         msg = "PVE关机"
         vmsPVE.stopPve()
@@ -146,7 +146,6 @@ def callback_handler(call):
 
 
     elif data == 'menu1#button2':
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         msg = "PVE重启"
         vmsPVE.rebootPve()
@@ -155,13 +154,11 @@ def callback_handler(call):
 
 
     elif data == 'menu1#button4':
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         bot.delete_message(chat_id, message_id)
 
 
     elif data == 'menu1#button3':
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         user_data[user_id]['level'] = 2
         user_data[user_id]['path'].append(data)
@@ -169,7 +166,6 @@ def callback_handler(call):
 
 
     if data == 'back':
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
@@ -177,7 +173,6 @@ def callback_handler(call):
 
 
     if data == 'home':
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         user_data[user_id]['level'] = 1
         user_data[user_id]['path'] = []
@@ -185,7 +180,6 @@ def callback_handler(call):
 
 
     if level == 2:
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
 
         user_data[user_id]['level'] = 3
@@ -194,7 +188,6 @@ def callback_handler(call):
 
 
     if level == 3:
-        print(user_data[user_id]['path'], user_data[user_id]['level'])
 
         vmid = int(path[-1].split("#")[1])
         vmname = path[-1].split("#")[2]
