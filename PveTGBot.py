@@ -40,8 +40,10 @@ user_data = {}
 def handle_start(message):
     if is_authorized(message.from_user):
         user_id = message.from_user.id
+        chat_id=message.chat.id
+
         user_data[user_id] = {'level': 1, 'path': []}
-        send_menu(user_id)
+        send_menu(user_id,chat_id=chat_id)
     else:
 
         bot.reply_to(message, f"You are not authorized to use this bot. id is {message.from_user.id}"
@@ -70,6 +72,8 @@ def send_menu(user_id, message_id=None, chat_id=None):
             types.InlineKeyboardButton('管理虚拟机', callback_data='menu1#button3'),
             types.InlineKeyboardButton('退出菜单', callback_data='menu1#button4'),
         ]
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要进行的操作: ")
+
 
         for i in range(0, len(buttons), 2):
             row = buttons[i:i + 2]
@@ -87,6 +91,8 @@ def send_menu(user_id, message_id=None, chat_id=None):
         #     row = buttons[i:i + 2]
         #     markup.add(*row)
         # markup.add(*buttons)
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="选择你要管理的虚拟机: ")
+
         for button in buttons:
             markup.add(button)
 
@@ -111,7 +117,8 @@ def send_menu(user_id, message_id=None, chat_id=None):
         bot.edit_message_reply_markup(user_id, message_id, reply_markup=markup)
     if not chat_id:
         bot.edit_message_reply_markup(user_id, '选择一个选项：', reply_markup=markup)
-    
+        bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current(), parse_mode='HTML')
+
     # else:
     #     bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
 
@@ -146,7 +153,7 @@ def callback_handler(call):
     elif data == 'menu1#button3':
         user_data[user_id]['level'] = 2
         user_data[user_id]['path'].append(data)
-        send_menu(user_id, message_id)
+        send_menu(user_id, message_id=message_id,chat_id=chat_id)
 
     if data == 'back':
         user_data[user_id]['level'] -= 1
