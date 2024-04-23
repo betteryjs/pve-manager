@@ -155,10 +155,10 @@ def callback_handler(call):
         msg = "退出菜单"
         bot.delete_message(chat_id, message_id)
 
-    elif data == 'menu1#button3':
-        user_data[user_id]['level'] = 2
-        user_data[user_id]['path'].append(data)
-        send_menu(user_id, message_id=message_id,chat_id=chat_id)
+    # elif data == 'menu1#button3':
+    #     user_data[user_id]['level'] = 2
+    #     user_data[user_id]['path'].append(data)
+    #     send_menu(user_id, message_id=message_id,chat_id=chat_id)
 
     if data == 'back':
         user_data[user_id]['level'] -= 1
