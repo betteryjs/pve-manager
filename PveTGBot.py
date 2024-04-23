@@ -65,10 +65,10 @@ def send_menu(user_id, message_id=None, chat_id=None):
     if level == 1:
 
         buttons = [
-            types.InlineKeyboardButton('PVE关机', callback_data='menu1-button1'),
-            types.InlineKeyboardButton('PVE重启', callback_data='menu1-button2'),
-            types.InlineKeyboardButton('管理虚拟机', callback_data='menu1-button3'),
-            types.InlineKeyboardButton('退出菜单', callback_data='menu1-button4'),
+            types.InlineKeyboardButton('PVE关机', callback_data='menu1#button1'),
+            types.InlineKeyboardButton('PVE重启', callback_data='menu1#button2'),
+            types.InlineKeyboardButton('管理虚拟机', callback_data='menu1#button3'),
+            types.InlineKeyboardButton('退出菜单', callback_data='menu1#button4'),
         ]
 
         for i in range(0, len(buttons), 2):
@@ -81,7 +81,7 @@ def send_menu(user_id, message_id=None, chat_id=None):
         # markup.add(button1, button2)
         res = VMS().getVM()
         res.sort()
-        buttons = [types.InlineKeyboardButton(f'{vm[0]}-{vm[1]}', callback_data=f'menu2-{vm[0]}-{vm[1]}') for vm in res]
+        buttons = [types.InlineKeyboardButton(f'{vm[0]}-{vm[1]}', callback_data=f'menu2#{vm[0]}#{vm[1]}') for vm in res]
 
         # for i in range(0, len(buttons), 2):
         #     row = buttons[i:i + 2]
@@ -94,13 +94,13 @@ def send_menu(user_id, message_id=None, chat_id=None):
     elif level == 3:
 
         buttons = [
-            types.InlineKeyboardButton(f'开机', callback_data='menu3-button1'),
-            types.InlineKeyboardButton(f'关机', callback_data='menu3-button2'),
-            types.InlineKeyboardButton(f'重启', callback_data='menu3-button3'),
-            types.InlineKeyboardButton(f'断电', callback_data='menu3-button4'),
-            types.InlineKeyboardButton(f'强制关机', callback_data='menu3-button5'),
+            types.InlineKeyboardButton(f'开机', callback_data='menu3#button1'),
+            types.InlineKeyboardButton(f'关机', callback_data='menu3#button2'),
+            types.InlineKeyboardButton(f'重启', callback_data='menu3#button3'),
+            types.InlineKeyboardButton(f'断电', callback_data='menu3#button4'),
+            types.InlineKeyboardButton(f'强制关机', callback_data='menu3#button5'),
         ]
-        vmid = int(path[-1].split("-")[1])
+        vmid = int(path[-1].split("#")[1])
         novm = VM(vmid)
         bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current(), parse_mode='HTML')
 
@@ -127,23 +127,23 @@ def callback_handler(call):
     chat_id = call.message.chat.id  # 获取当前聊天的chat_id
     vmsPVE=VMS()
 
-    if data == 'menu1-button1':
+    if data == 'menu1#button1':
         msg = "PVE关机"
         vmsPVE.stopPve()
         bot.send_message(chat_id, msg)
         bot.delete_message(chat_id, message_id)
 
-    elif data == 'menu1-button2':
+    elif data == 'menu1#button2':
         msg = "PVE重启"
         vmsPVE.rebootPve()
         bot.send_message(chat_id, msg)
         bot.delete_message(chat_id, message_id)
 
-    elif data == 'menu1-button4':
+    elif data == 'menu1#button4':
         msg = "退出菜单"
         bot.delete_message(chat_id, message_id)
 
-    elif data == 'menu1-button3':
+    elif data == 'menu1#button3':
         user_data[user_id]['level'] = 2
         user_data[user_id]['path'].append(data)
         send_menu(user_id, message_id)
@@ -170,10 +170,10 @@ def callback_handler(call):
 
     elif level == 3:
         print(path[-1])
-        vmid = int(path[-1].split("-")[1])
-        vmname = path[-1].split("-")[2]
+        vmid = int(path[-1].split("#")[1])
+        vmname = path[-1].split("#")[2]
         novm = VM(vmid)
-        choose = data.split("-")[1]
+        choose = data.split("#")[1]
         # bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=novm.current())
 
         if choose == "button1":
