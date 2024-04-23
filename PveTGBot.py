@@ -170,10 +170,10 @@ def callback_handler(call):
         user_data[user_id]['path'] = []
         send_menu(user_id, message_id,chat_id=chat_id)
 
-    # if level == 1:
-    #     user_data[user_id]['level'] = 2
-    #     user_data[user_id]['path'].append(data)
-    #     send_menu(user_id, message_id)
+    if level == 1 and data=="menu1#button3":
+        user_data[user_id]['level'] = 2
+        user_data[user_id]['path'].append(data)
+        send_menu(user_id, message_id=message_id,chat_id=chat_id)
 
     if level == 2:
         user_data[user_id]['level'] = 3
