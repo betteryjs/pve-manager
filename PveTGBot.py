@@ -7,6 +7,9 @@ from telebot import types
 from config import Config
 from vms import VMS
 from vm import VM
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def signal_handler(signal, frame):
