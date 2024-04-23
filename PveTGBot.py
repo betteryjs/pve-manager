@@ -180,7 +180,7 @@ def callback_handler(call):
         user_data[user_id]['path'].append(data)
         send_menu(user_id, message_id, chat_id)
 
-    elif level == 3:
+    if level == 3:
         print(path[-1])
         vmid = int(path[-1].split("#")[1])
         vmname = path[-1].split("#")[2]
