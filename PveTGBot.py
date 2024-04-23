@@ -109,8 +109,11 @@ def send_menu(user_id, message_id=None, chat_id=None):
 
     if message_id:
         bot.edit_message_reply_markup(user_id, message_id, reply_markup=markup)
-    else:
+    if not chat_id:
         bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
+    
+    # else:
+    #     bot.send_message(user_id, '选择一个选项：', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
