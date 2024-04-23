@@ -30,6 +30,10 @@ def is_authorized(user_identifier):
     return False
 
 
+
+
+
+
 bot = telebot.TeleBot(Config["TGBotAPI"])
 
 # 存储用户状态的字典
@@ -152,13 +156,12 @@ def callback_handler(call):
         bot.delete_message(chat_id, message_id)
 
     elif data == 'menu1#button4':
-        msg = "退出菜单"
         bot.delete_message(chat_id, message_id)
 
-    # elif data == 'menu1#button3':
-    #     user_data[user_id]['level'] = 2
-    #     user_data[user_id]['path'].append(data)
-    #     send_menu(user_id, message_id=message_id,chat_id=chat_id)
+    elif data == 'menu1#button3':
+        user_data[user_id]['level'] = 2
+        user_data[user_id]['path'].append(data)
+        send_menu(user_id, message_id=message_id,chat_id=chat_id)
 
     if data == 'back':
         user_data[user_id]['level'] -= 1
@@ -170,10 +173,7 @@ def callback_handler(call):
         user_data[user_id]['path'] = []
         send_menu(user_id, message_id,chat_id=chat_id)
 
-    if level == 1 and data=="menu1#button3":
-        user_data[user_id]['level'] = 2
-        user_data[user_id]['path'].append(data)
-        send_menu(user_id, message_id=message_id,chat_id=chat_id)
+
 
     if level == 2:
         user_data[user_id]['level'] = 3
@@ -209,12 +209,7 @@ def callback_handler(call):
         elif choose == "button5":
             novm.forceStop()
             bot.send_message(user_id, f'{vmname}-{vmid} 强制关机成功')
-        # elif choose=="button6":
-        #     bot.send_message(chat_id, "button6")
-        # elif choose=="button7":
-        #     bot.send_message(chat_id, "button7")
 
-        # bot.send_message(user_id, f'您选择了 {vmid} 的 {choose}。')
 
         user_data[user_id]['level'] -= 1
         user_data[user_id]['path'].pop()
